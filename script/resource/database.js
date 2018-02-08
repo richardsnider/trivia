@@ -26,11 +26,11 @@ module.exports = {
         });
     },
     disconnect: function() {
-        console.log(`Closing DB connection...`);
+        console.log(`Closing database connection...`);
         this.connection.end();
     },
     query: function () {
-        console.log(`Querying DB...`)
+        console.log(`Querying database...`)
         return new Promise((resolve, reject) => {
             this.connection.query(randQuestionQuery, function (error, results) {
                 if (error) {
