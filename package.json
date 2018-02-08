@@ -1,0 +1,30 @@
+{
+  "name": "progmux-trivia",
+  "version": "1.0.0",
+  "description": "Simple trivia question site.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node script/start.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/progmux/trivia.git"
+  },
+  "author": "Richard Snider",
+  "license": "ISC",
+  "dependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "connect": "^3.6.5",
+    "dotenv": "^5.0.0",
+    "dotenv-webpack": "^1.5.4",
+    "lodash.map": "^4.6.0",
+    "moment": "^2.20.1",
+    "mysql": "^2.15.0",
+    "serve-static": "^1.13.2",
+    "socket.io": "^2.0.4",
+    "webpack": "^3.10.0"
+  }
+}
