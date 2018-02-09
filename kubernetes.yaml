@@ -1,0 +1,40 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: trivia
+spec:
+  selector:
+    app: trivia
+  type: LoadBalancer
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: trivia
+  labels:
+    app: trivia
+spec:
+  selector:
+    matchLabels:
+      app: trivia
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: trivia
+    spec:
+      containers:
+      - name: trivia
+        image: us.gcr.io/progmux-167421/trivia:latest
+        imagePullPolicy: Always
+        resources:
+          limits:
+            memory: 500Mi
+            cpu: 100m
+        ports:
+        - containerPort: 80
