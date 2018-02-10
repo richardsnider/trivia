@@ -38,3 +38,24 @@ spec:
             cpu: 100m
         ports:
         - containerPort: 80
+        volumeMounts:
+          - name: env
+            mountPath: /home/node/secrets
+      - name: cloudsql-proxy
+        image: gcr.io/cloudsql-docker/gce-proxy:1.11
+        command: ["/cloud_sql_proxy",
+                  "-instances=progmux-167421:us-west1:trivia=tcp:3306",
+                  "-credential_file=/secrets/cloudsql/cloudsql-client-key.json"]
+        volumeMounts:
+          - name: cloudsql-client-key
+            mountPath: /secrets/cloudsql
+            readOnly: true
+      volumes:
+        - name: env
+          secret:
+            secretName: env
+        - name: cloudsql-client-key
+          secret:
+            secretName: cloudsql-client-key
+        - name: cloudsql #Fairly certain this volume isn't needed.
+          emptyDir:
