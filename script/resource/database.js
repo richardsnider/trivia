@@ -1,5 +1,6 @@
 const fs = require(`fs`);
 const mysql = require(`mysql`);
+const path = require(`path`);
 
 const randQuestionQuery = `
 SELECT * FROM open_questions
@@ -14,9 +15,9 @@ let connectionConfig =
         password: process.env.DB_PASSWORD,
         database: process.env.DB_NAME,
         ssl: process.env.NODE_ENV === `local` ? {
-            ca: fs.readFileSync(__dirname + `/server-ca.pem`),
-            cert: fs.readFileSync(__dirname + `/client-cert.pem`),
-            key: fs.readFileSync(__dirname + `/client-key.pem`)
+            ca: fs.readFileSync(path.join(__dirname + `../../../secrets/server-ca.pem`)),
+            cert: fs.readFileSync(path.join(__dirname + `../../../secrets/client-cert.pem`)),
+            key: fs.readFileSync(path.join(__dirname +`../../../secrets/client-key.pem`))
         } : undefined
 }
 
