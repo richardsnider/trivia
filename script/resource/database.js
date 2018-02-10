@@ -7,25 +7,29 @@ ORDER BY RAND()
 LIMIT 10;
 `;
 
+let connectionConfig =
+    {
+        host: process.env.DB_HOST,
+        user: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        database: process.env.DB_NAME,
+        ssl: process.env.NODE_ENV === `local` ? {
+            ca: fs.readFileSync(__dirname + `/server-ca.pem`),
+            cert: fs.readFileSync(__dirname + `/client-cert.pem`),
+            key: fs.readFileSync(__dirname + `/client-key.pem`)
+        } : undefined
+}
+
+
 module.exports = {
     init: function () {
-        this.connection = mysql.createConnection({
-            host: process.env.DB_HOST,
-            user: process.env.DB_USER,
-            password: process.env.DB_PASSWORD,
-            database: process.env.DB_NAME,
-            ssl: {
-                ca: fs.readFileSync(__dirname + `/server-ca.pem`),
-                cert: fs.readFileSync(__dirname + `/client-cert.pem`),
-                key: fs.readFileSync(__dirname + `/client-key.pem`)
-            }
-        });
+        this.connection = mysql.createConnection(connectionConfig);
 
         this.connection.connect(function (err) {
-            if (err) throw err;
+            if (err) throw (err);
         });
     },
-    disconnect: function() {
+    disconnect: function () {
         console.log(`Closing database connection...`);
         this.connection.end();
     },
