@@ -10,8 +10,8 @@ RUN cp -a node_modules /home/node/node_modules
 
 WORKDIR /home/node
 ADD package.json .
-ADD script .
-ADD src .
+ADD script ./script
+ADD src ./src
 
 EXPOSE 80
 ENTRYPOINT ["npm", "start"]
