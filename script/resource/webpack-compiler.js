@@ -24,7 +24,7 @@ module.exports = webpack({
     },
     plugins: [
         new dotenvWebpack({
-            path: `./.env`
+            path: path.join(__dirname, `../../secrets/.env`)
         })
     ]
 });

@@ -1,4 +1,7 @@
-require(`dotenv`).config();
+require(`dotenv`).config({
+    path: require(`path`).join(__dirname, `../secrets/.env`)
+});
+
 const moment = require(`moment`);
 const server = require(`./resource/server.js`);
 const builder = require(`./resource/builder.js`);
