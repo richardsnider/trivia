@@ -17,22 +17,28 @@ let connectionConfig =
         ssl: process.env.NODE_ENV === `local` ? {
             ca: fs.readFileSync(path.join(__dirname + `../../../secrets/server-ca.pem`)),
             cert: fs.readFileSync(path.join(__dirname + `../../../secrets/client-cert.pem`)),
-            key: fs.readFileSync(path.join(__dirname +`../../../secrets/client-key.pem`))
+            key: fs.readFileSync(path.join(__dirname + `../../../secrets/client-key.pem`))
         } : undefined
-}
-
+    }
 
 module.exports = {
     init: function () {
         this.connection = mysql.createConnection(connectionConfig);
 
-        this.connection.connect(function (err) {
+        this.connection.connect((err) => {
             if (err) throw (err);
+            console.log(
+                `DB connection is ` + this.connection.state
+                + `: ` + connectionConfig.user
+                + `@` + connectionConfig.host
+            );
         });
     },
     disconnect: function () {
-        console.log(`Closing database connection...`);
-        this.connection.end();
+        this.connection.end((err) => {
+            if (err) throw (err);
+            console.log(`DB disconnected`);
+        });
     },
     query: function () {
         console.log(`Querying database...`)
