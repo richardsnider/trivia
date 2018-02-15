@@ -1,0 +1,49 @@
+* {
+    box-sizing: border-box;
+    display: block;
+    color: black;
+    fill: currentColor;
+    font-family: Courier New !important;
+    font-size: 40px;
+    word-wrap: break-word;
+    text-decoration: none;
+    background-color: transparent;
+    margin: 0;
+    border-style: none;
+    outline: none;
+    padding: 0;
+    text-align: center;
+    text-decoration: none;
+}
+
+body {
+    background-color: whitesmoke;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(12, 50px);
+    grid-gap: 5px
+}
+
+.header {
+    background-color: darkslategray;
+    color: lightgrey;
+}
+
+.button { 
+    background-color: dodgerblue;
+    color: white;
+    cursor: pointer;
+    border-radius: 10px;
+    padding-top: 3px;
+}
+
+svg, svg path {
+    fill: lightgrey;
+    height: 100%;  
+}
+
+input {
+    border: 2px solid black;
+    border-radius: 10px;
+    background-color: white;
+}
