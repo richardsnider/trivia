@@ -2,28 +2,29 @@ import elemancer from './elemancer.js'
 
 const home = {
     category: elemancer.add({
-        tagName: `h1`,
         style: {
-            'text-align': `center`
+            'grid-column-start': 2,
+            'grid-column-end': 12,
+            'grid-row': 2
         },
-        textContent: `heyyooo`
     }),
 
     question: elemancer.add({
-        tagName: `h1`,
         style: {
-            'text-align': `center`
+            'grid-column-start': 2,
+            'grid-column-end': 12,
+            'grid-row-start': 4,
+            'grid-row-end': 7
         },
-        textContent: `heyyooo`
     }),
 
     answer: elemancer.add({
-        tagName: `h1`,
         style: {
-            'text-align': `center`,
+            'grid-column-start': 2,
+            'grid-column-end': 12,
+            'grid-row': 10,
             'opacity': 0
         },
-        textContent: `heyyooo`
     })
 }
 
