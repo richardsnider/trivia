@@ -1,8 +1,8 @@
-import websocket from './websocket.js';
+import websocketClient from './websocket-client.js';
 
 window.onload = init();
 
 function init() {
-    websocket.init();
+    websocketClient.init();
 }
 
