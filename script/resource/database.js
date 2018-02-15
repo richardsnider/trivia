@@ -15,9 +15,9 @@ let connectionConfig =
         password: process.env.DB_PASSWORD,
         database: process.env.DB_NAME,
         ssl: process.env.NODE_ENV === `local` ? {
-            ca: fs.readFileSync(path.join(__dirname + `../../../secrets/server-ca.pem`)),
-            cert: fs.readFileSync(path.join(__dirname + `../../../secrets/client-cert.pem`)),
-            key: fs.readFileSync(path.join(__dirname + `../../../secrets/client-key.pem`))
+            ca: fs.readFileSync(path.join(__dirname + `../../../secrets/sql-server-ca.pem`)),
+            cert: fs.readFileSync(path.join(__dirname + `../../../secrets/sql-client-cert.pem`)),
+            key: fs.readFileSync(path.join(__dirname + `../../../secrets/sql-client-key.pem`))
         } : undefined
     }
 
