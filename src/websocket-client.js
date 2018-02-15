@@ -22,11 +22,11 @@ const client = {
                     home.answer.style.opacity = 0;
                     let answerTimer = setTimeout(function () {
                         home.answer.style.opacity = 1.0;
-                    }, 10000)
+                    }, 30000)
                 }
 
                 let timeout = next.done === false ? changeTextContent : function () { client.socket.emit(`question`); };
-                currentTimer = setTimeout(timeout, 15000)
+                currentTimer = setTimeout(timeout, 45000)
             })();
         });
 
