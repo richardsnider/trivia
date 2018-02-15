@@ -31,7 +31,7 @@ else {
     console.log(`Watcher started.`);
 
     process.on(`SIGINT`, () => {
-        console.log(`Closing server...`)
+        console.log(`\nClosing server...`)
         watcher.close(() => { console.log(`Watching Ended.`); });
 
         server.close(() => {
