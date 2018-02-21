@@ -14,7 +14,7 @@ const home = {
             'grid-column-start': 2,
             'grid-column-end': 12,
             'grid-row-start': 4,
-            'grid-row-end': 7
+            'grid-row-end': 8
         },
     }),
 
@@ -22,7 +22,7 @@ const home = {
         style: {
             'grid-column-start': 2,
             'grid-column-end': 12,
-            'grid-row': 10,
+            'grid-row': 12,
             'opacity': 0
         },
     })
