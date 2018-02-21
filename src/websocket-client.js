@@ -11,23 +11,30 @@ const client = {
         client.socket.emit(`question`);
 
         client.socket.on(`question`, function (data) {
-            let i = data[Symbol.iterator]();
-            let currentTimer;
-            (function changeTextContent() {
-                let next = i.next();
-                if (!next.done) {
-                    home.category.textContent = next.value.category;
-                    home.question.textContent = next.value.question;
-                    home.answer.textContent = next.value.answer;
-                    home.answer.style.opacity = 0;
-                    let answerTimer = setTimeout(function () {
-                        home.answer.style.opacity = 1.0;
-                    }, 30000)
+            let i = 0;
+            let questionTimer, answerTimer, opacityTimer;
+
+            function changeTextContent() {
+                if (i >= data.length) {
+                    client.socket.emit(`question`);
+                    return;
                 }
 
-                let timeout = next.done === false ? changeTextContent : function () { client.socket.emit(`question`); };
-                currentTimer = setTimeout(timeout, 45000)
-            })();
+                home.category.textContent = data[i].category;
+                home.question.textContent = data[i].question;
+                home.answer.style.opacity = 0;
+                home.answer.textContent = data[i].answer;
+
+                answerTimer = setTimeout(showAnswer, 30000);
+                questionTimer = setTimeout(changeTextContent, 40000);
+                i++;
+            }
+
+            function showAnswer() {
+                home.answer.style.opacity = 1.0;
+            }
+
+            changeTextContent();
         });
 
         client.socket.on(`disconnect`, function (data) {
