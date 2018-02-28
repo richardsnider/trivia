@@ -35,10 +35,7 @@ else {
         log(`Closing server...`);
         watcher.close(() => { log(`Watcher ended.`); });
 
-        server.close(() => {
-            log(`Server closed.`);
-            process.exit()
-        })
+        server.close();
 
         setTimeout((e) => {
             log(`Forcing server close!`, e);

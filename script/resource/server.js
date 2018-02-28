@@ -3,22 +3,27 @@ const database = require(`./database.js`);
 const log = require(`./log.js`);
 const path = require(`path`);
 const serveStatic = require(`serve-static`);
-const websocketServer = require(`./websocket-server.js`);
+const websocketHandler = require(`./websocket-server.js`);
 
-module.exports = {
+const server = {
   start: function () {
     database.init();
 
-    this.instance = connect()
+    server.httpServer = connect()
       .use(serveStatic(path.join(__dirname, `../../dist`)))
       .listen(process.env.HTTP_PORT, function () {
         log(`HTTP Server running on port: ` + process.env.HTTP_PORT);
       });
 
-    websocketServer.init(this.instance);
+    websocketHandler.init(server.httpServer);
   },
-  close: function (callback) {
+  close: function () {
     database.disconnect();
-    return this.instance.close()
+    websocketHandler.close();
+    server.httpServer.close();
+    log(`Server closed.`);
+    process.exit()
   }
 };
+
+module.exports = server;

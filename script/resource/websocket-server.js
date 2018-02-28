@@ -1,12 +1,13 @@
 const database = require(`./database.js`);
 const log = require(`./log.js`);
+const map = require(`lodash.map`);
 const socketIO = require(`socket.io`);
 
-module.exports = {
+const websocketHandler = {
     init: function (httpServer) {
-        this.socketIOServer = socketIO(httpServer);
-        
-        this.socketIOServer.on(`connection`, function (socket) {
+        websocketHandler.socketIOServer = socketIO(httpServer);
+
+        websocketHandler.socketIOServer.on(`connection`, function (socket) {
             log(`Connection established to ` + socket.handshake.address + `, socket ` + socket.id);
 
             socket.emit(`announcements`,
@@ -23,5 +24,17 @@ module.exports = {
                 log(`Disconnected from ` + socket.handshake.address + `, socket ` + socket.id);
             });
         });
+    },
+    close: function () {
+        map(websocketHandler.socketIOServer.nsps['/'].sockets, function(value) {
+            value.disconnect(true);
+        });
+
+        websocketHandler.socketIOServer.close(function(err) {
+            if(err) throw err;
+            log(`Websocket server closed.`);
+        });
     }
 };
+
+module.exports = websocketHandler;
