@@ -29,7 +29,7 @@ module.exports = {
         this.connection.connect((err) => {
             if (err) throw (err);
             log(
-                `Database connection: ` + this.connection.state
+                `Database connection ` + this.connection.state
                 + `: ` + connectionConfig.user
                 + `@` + connectionConfig.host
             );
