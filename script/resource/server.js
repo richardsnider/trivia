@@ -1,7 +1,8 @@
 const connect = require(`connect`);
+const database = require(`./database.js`);
+const log = require(`./log.js`);
 const path = require(`path`);
 const serveStatic = require(`serve-static`);
-const database = require(`./database.js`)
 const websocketServer = require(`./websocket-server.js`);
 
 module.exports = {
@@ -11,7 +12,7 @@ module.exports = {
     this.instance = connect()
       .use(serveStatic(path.join(__dirname, `../../dist`)))
       .listen(process.env.HTTP_PORT, function () {
-        console.log(`HTTP Server running on port: ` + process.env.HTTP_PORT);
+        log(`HTTP Server running on port: ` + process.env.HTTP_PORT);
       });
 
     websocketServer.init(this.instance);

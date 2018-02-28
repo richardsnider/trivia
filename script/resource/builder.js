@@ -1,4 +1,5 @@
 const fs = require(`fs`);
+const log = require(`./log.js`);
 
 module.exports = {
     build: function () {
@@ -13,6 +14,6 @@ module.exports = {
         fs.createReadStream(`./src/stylesheet.css`)
             .pipe(fs.createWriteStream(`./dist/stylesheet.css`));
 
-        console.log(`Building completed.`)
+        log(`Building completed.`);
     }
 };

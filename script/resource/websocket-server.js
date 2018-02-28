@@ -1,12 +1,13 @@
-const socketIO = require(`socket.io`);
 const database = require(`./database.js`);
+const log = require(`./log.js`);
+const socketIO = require(`socket.io`);
 
 module.exports = {
     init: function (httpServer) {
         this.socketIOServer = socketIO(httpServer);
         
         this.socketIOServer.on(`connection`, function (socket) {
-            console.log(`Connection established...`)
+            log(`Connection established to ` + socket.handshake.address + `, socket ` + socket.id);
 
             socket.emit(`announcements`,
                 { message: `Websocket server connected.` }
@@ -19,7 +20,7 @@ module.exports = {
             });
 
             socket.on(`disconnect`, function () {
-                console.log(`Disconnected...`);
+                log(`Disconnected from ` + socket.handshake.address + `, socket ` + socket.id);
             });
         });
     }

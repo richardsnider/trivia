@@ -1,4 +1,5 @@
 const fs = require(`fs`);
+const log = require(`./log.js`);
 const mysql = require(`mysql`);
 const path = require(`path`);
 
@@ -27,8 +28,8 @@ module.exports = {
 
         this.connection.connect((err) => {
             if (err) throw (err);
-            console.log(
-                `DB connection is ` + this.connection.state
+            log(
+                `Database connection: ` + this.connection.state
                 + `: ` + connectionConfig.user
                 + `@` + connectionConfig.host
             );
@@ -37,17 +38,18 @@ module.exports = {
     disconnect: function () {
         this.connection.end((err) => {
             if (err) throw (err);
-            console.log(`DB disconnected`);
+            log(`Database disconnected.`);
         });
     },
     query: function () {
-        console.log(`Querying database...`)
+        log(`Querying database...`);
         return new Promise((resolve, reject) => {
             this.connection.query(randQuestionQuery, function (error, results) {
                 if (error) {
                     reject(error);
                 }
                 else {
+                    log(`Database query successful.`);
                     resolve(results);
                 }
             })
