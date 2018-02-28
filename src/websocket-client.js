@@ -44,7 +44,6 @@ const client = {
             log(`Host websocket has disconnected.`);
             timers.clearTimeout(client.answerTimer);
             timers.clearTimeout(client.answerTimer);
-            socket.disconnect();
         });
     }
 };
