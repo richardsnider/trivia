@@ -36,9 +36,12 @@ const database = {
         });
     },
     disconnect: function () {
-        database.connection.end((err) => {
-            if (err) throw (err);
-            log(`Database disconnected.`);
+        return new Promise((resolve, reject) => {
+            database.connection.end((err) => {
+                if (err) reject(err);
+                log(`Database disconnected.`);
+                resolve();
+            });
         });
     },
     query: function () {

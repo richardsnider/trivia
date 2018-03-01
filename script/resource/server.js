@@ -18,11 +18,16 @@ const server = {
     websocketHandler.init(server.httpServer);
   },
   close: function () {
-    database.disconnect();
-    websocketHandler.close();
-    server.httpServer.close();
-    log(`Server closed.`);
-    process.exit()
+    websocketHandler.close()
+      .then(() => {
+        return database.disconnect();
+      }).then(() => {
+        return server.httpServer.close();
+      }).then(() => {
+        return log(`Server closed.`);
+      }).then(() => {
+        return process.exit()
+      });
   }
 };
 

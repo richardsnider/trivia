@@ -26,13 +26,16 @@ const websocketHandler = {
         });
     },
     close: function () {
-        map(websocketHandler.socketIOServer.nsps['/'].sockets, function(value) {
-            value.disconnect(true);
-        });
+        return new Promise(function (resolve, reject) {
+            map(websocketHandler.socketIOServer.nsps['/'].sockets, function (value) {
+                value.disconnect(true);
+            });
 
-        websocketHandler.socketIOServer.close(function(err) {
-            if(err) throw err;
-            log(`Websocket server closed.`);
+            websocketHandler.socketIOServer.close(function (err) {
+                if (err) reject(err);
+                log(`Websocket server closed.`);
+                resolve(true);
+            });
         });
     }
 };
