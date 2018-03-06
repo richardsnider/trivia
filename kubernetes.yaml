@@ -57,5 +57,3 @@ spec:
         - name: cloudsql-client-key
           secret:
             secretName: cloudsql-client-key
-        - name: cloudsql #Fairly certain this volume isn't needed.
-          emptyDir:
